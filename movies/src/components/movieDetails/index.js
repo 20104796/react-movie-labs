@@ -19,7 +19,7 @@ const root = {
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ( props) => {
+const MovieDetails = (props) => {
     const movie = props.movie
 
     return (
@@ -57,6 +57,19 @@ const MovieDetails = ( props) => {
                 />
                 <Chip label={`Released: ${movie.release_date}`} />
             </Paper>
+
+            <Paper component="ul" sx={{...root}}>
+                <li>
+                    <Chip label="Production Countries" sx={{...chip}} color="primary" />
+                </li>
+                {movie.productionCountry.map((g) => (
+                    <li key={g.name}>
+                        <Chip label={g.name} sx={{...chip}} />
+                    </li>
+                ))}
+            </Paper>
+
+
             <Fab
                 color="secondary"
                 variant="extended"
