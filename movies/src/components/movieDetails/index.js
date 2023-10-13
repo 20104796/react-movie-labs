@@ -62,7 +62,7 @@ const MovieDetails = (props) => {
                 <li>
                     <Chip label="Production Countries" sx={{...chip}} color="primary" />
                 </li>
-                {movie.productionCountry.map((g) => (
+                {movie.production_countries.map((g) => (
                     <li key={g.name}>
                         <Chip label={g.name} sx={{...chip}} />
                     </li>
