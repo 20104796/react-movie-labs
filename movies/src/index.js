@@ -5,6 +5,7 @@ import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
+import MovieUpcomingPage from "./pages/movieUpcomingPage";
 import SiteHeader from './components/siteHeader'
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
             <SiteHeader />
             <Routes>
                 <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
+                <Route path="/movies/upcoming" element={<MovieUpcomingPage />} />
                 <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
                 <Route path="/movies/:id" element={<MoviePage />} />
                 <Route path="/" element={<HomePage />} />
