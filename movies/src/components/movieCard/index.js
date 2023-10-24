@@ -1,4 +1,4 @@
-import React, { useContext  } from "react";
+import React, {useContext, useState} from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -11,6 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import IconButton from "@mui/material/IconButton";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
@@ -18,6 +19,15 @@ import Avatar from '@mui/material/Avatar';
 
 
 export default function MovieCard({ movie, action }) {
+
+    const { mustWatch, addToMustWatch } = useContext(MoviesContext);
+    if (mustWatch.find((id) => id === movie.id)) {
+        movie.mustWatch = true;
+    } else {
+        movie.mustWatch = false
+    }
+
+
     const { favorites, addToFavorites } = useContext(MoviesContext);
 
     if (favorites.find((id) => id === movie.id)) {
@@ -31,15 +41,23 @@ export default function MovieCard({ movie, action }) {
         addToFavorites(movie);
     };
 
+
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
                 avatar={
-                    movie.favorite ? (
-                        <Avatar sx={{ backgroundColor: 'red' }}>
-                            <FavoriteIcon />
-                        </Avatar>
-                    ) : null
+                    <div>
+                        {movie.mustWatch ? (
+                            <Avatar sx={{ backgroundColor: 'red' }}>
+                                <PlaylistAddIcon />
+                            </Avatar>
+                        ) : null}
+                        {movie.favorite ? (
+                            <Avatar sx={{ backgroundColor: 'red' }}>
+                                <FavoriteIcon />
+                            </Avatar>
+                        ) : null}
+                    </div>
                 }
                 title={
                     <Typography variant="h5" component="p">

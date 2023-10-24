@@ -3,7 +3,7 @@ import PageTemplate from '../components/templateMovieListPage'
 import { getUpcomingMovies} from "../api/tmdb-api";
 import {useQuery} from "react-query";
 import Spinner from "../components/spinner";
-import PlaylistIcon from '@mui/icons-material/PlaylistAdd';
+import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
 
 const UpcomingMoviePage = (props) => {
 
@@ -19,26 +19,15 @@ const UpcomingMoviePage = (props) => {
     const movies = data.results;
 
     // Redundant, but necessary to avoid app crashing.
-    const favorites = movies.filter(m => m.favorite)
-    localStorage.setItem('favorites', JSON.stringify(favorites))
-
-    const addToWatchlist = (movie) => {
-        const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
-        if (!watchlist.some((item) => item.id === movie.id)) {
-            watchlist.push(movie);
-            localStorage.setItem('watchlist', JSON.stringify(watchlist));
-            alert(`Film "${movie.title}" has been added to the playlist`);
-        } else {
-            alert(`Film "${movie.title}" is already in the playlist。`);
-        }
-    };
+    const mustWatch = movies.filter(m => m.mustWatch)
+    localStorage.setItem('favorites', JSON.stringify(mustWatch))
 
     return (
         <PageTemplate
             title='Upcoming Movies'
             movies={movies}
             action={(movie) => {
-                return <PlaylistIcon onClick={() => addToWatchlist(movie)} />
+                return <AddToMustWatchIcon movie={movie} />
             }}
         />
     );
