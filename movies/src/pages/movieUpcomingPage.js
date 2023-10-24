@@ -22,12 +22,23 @@ const UpcomingMoviePage = (props) => {
     const favorites = movies.filter(m => m.favorite)
     localStorage.setItem('favorites', JSON.stringify(favorites))
 
+    const addToWatchlist = (movie) => {
+        const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+        if (!watchlist.some((item) => item.id === movie.id)) {
+            watchlist.push(movie);
+            localStorage.setItem('watchlist', JSON.stringify(watchlist));
+            alert(`Film "${movie.title}" has been added to the playlist`);
+        } else {
+            alert(`Film "${movie.title}" is already in the playlist。`);
+        }
+    };
+
     return (
         <PageTemplate
             title='Upcoming Movies'
             movies={movies}
             action={(movie) => {
-                return <PlaylistIcon movie={movie} />
+                return <PlaylistIcon onClick={() => addToWatchlist(movie)} />
             }}
         />
     );
